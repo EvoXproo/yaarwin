@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>JALWA - Luxury Gold Edition</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+            color: #d4af37;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .luxury-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #d4af37;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: particleFloat 15s infinite;
+        }
+
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 30%; animation-delay: 2s; }
+        .particle:nth-child(3) { left: 50%; animation-delay: 4s; }
+        .particle:nth-child(4) { left: 70%; animation-delay: 6s; }
+        .particle:nth-child(5) { left: 90%; animation-delay: 8s; }
+
+        @keyframes particleFloat {
+            0%, 100% { transform: translateY(100vh); opacity: 0; }
+            10%, 90% { opacity: 0.3; }
+            50% { transform: translateY(-100px); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .luxury-card {
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.95), rgba(0, 0, 0, 0.95));
+            border: 3px solid #d4af37;
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 
+                0 20px 60px rgba(212, 175, 55, 0.3),
+                inset 0 0 50px rgba(212, 175, 55, 0.05);
+            position: relative;
+            width: 100%;
+        }
+
+        .luxury-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #d4af37, #ffd700, #d4af37);
+            border-radius: 20px;
+            z-index: -1;
+            animation: borderGlow 3s linear infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .crown {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 10px #d4af37);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 42px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #d4af37, #ffd700, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 5px;
+            text-shadow: 0 5px 15px rgba(212, 175, 55, 0.5);
+        }
+
+        .subtitle {
+            color: #c0c0c0;
+            font-size: 12px;
+            letter-spacing: 4px;
+            margin-top: 10px;
+            text-transform: uppercase;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .vip-badge {
+            background: linear-gradient(90deg, #d4af37, #ffd700);
+            color: #000;
+            padding: 8px 25px;
+            border-radius: 50px;
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin: 20px auto;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .prediction-box {
+            background: rgba(212, 175, 55, 0.05);
+            border: 2px solid #d4af37;
+            border-radius: 15px;
+            padding: 30px 20px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .pred-title {
+            font-size: 14px;
+            color: #d4af37;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .bet-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .ball {
+            width: 110px;
+            height: 110px;
+            display: inline-flex;
+            animation: luxuryFloat 4s ease-in-out infinite;
+            filter: drop-shadow(0 10px 30px rgba(212, 175, 55, 0.4));
+        }
+
+        .ball img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        @keyframes luxuryFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.05); }
+        }
+
+        .bet-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffd700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .period-section {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #d4af37;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .period-label {
+            font-size: 11px;
+            color: #c0c0c0;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .period-value {
+            font-size: 18px;
+            color: #d4af37;
+            font-weight: bold;
+            letter-spacing: 2px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .luxury-button {
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, #d4af37, #ffd700);
+            border: none;
+            border-radius: 50px;
+            color: #000;
+            font-size: 15px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+            transition: all 0.3s;
+            margin: 25px 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .luxury-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.6);
+        }
+
+        .luxury-button:active {
+            transform: translateY(-1px);
+        }
+
+        .footer {
+            text-align: center;
+            color: #7a7a7a;
+            font-size: 11px;
+            margin-top: 20px;
+            letter-spacing: 1px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+        }
+
+        .modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.98), rgba(0, 0, 0, 0.98));
+            border: 3px solid #d4af37;
+            border-radius: 20px;
+            padding: 40px 30px;
+            max-width: 90%;
+            width: 420px;
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.5);
+        }
+
+        .modal-header {
+            font-size: 22px;
+            color: #d4af37;
+            text-align: center;
+            margin-bottom: 30px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-label {
+            display: block;
+            color: #c0c0c0;
+            font-size: 12px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 2px solid #d4af37;
+            border-radius: 10px;
+            color: #d4af37;
+            font-size: 18px;
+            text-align: center;
+            font-weight: bold;
+            letter-spacing: 2px;
+            outline: none;
+        }
+
+        .modal-input:focus {
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #d4af37;
+            border-radius: 50px;
+            font-weight: 900;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .modal-btn-confirm {
+            background: linear-gradient(135deg, #d4af37, #ffd700);
+            color: #000;
+            border: none;
+        }
+
+        .modal-btn-confirm:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5);
+        }
+
+        .modal-btn-cancel {
+            background: transparent;
+            color: #d4af37;
+        }
+
+        .modal-btn-cancel:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .modal-error {
+            color: #ff6b6b;
+            font-size: 13px;
+            margin-top: 15px;
+            text-align: center;
+            min-height: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .logo { font-size: 36px; }
+            .ball { width: 90px; height: 90px; }
+            .bet-text { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="luxury-bg"></div>
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="container">
+        <div class="luxury-card">
+            <div class="crown">👑</div>
+            <div class="header">
+                <div class="logo">YAAR WIN</div>
+                <div class="subtitle">VIP Predictions</div>
+            </div>
+
+            <center><div class="vip-badge">VIP MEMBER</div></center>
+
+            <div class="prediction-box">
+                <div class="pred-title">★ PREMIUM PREDICTION ★</div>
+                <div class="bet-display" id="betNumber">
+                    <div class="ball"><img src="ball-9.png" alt="9"></div>
+                    <span class="bet-text">BIG WIN</span>
+                </div>
+            </div>
+
+            <div class="period-section">
+                <div class="period-label">PERIOD IDENTITY</div>
+                <div class="period-value" id="period">20260610100010455</div>
+            </div>
+
+            <button class="luxury-button" id="hackButton">
+                ⚡ NEXT PREDICTION ⚡
+            </button>
+
+            <div class="footer">
+                ◆ EXCLUSIVE VIP SERVICE ◆
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="numberModal">
+        <div class="modal-content">
+            <div class="modal-header">ENTER DETAILS</div>
+            
+            <div class="input-group">
+                <label class="input-label" for="numberInput">Number (0-9)</label>
+                <input type="text" id="numberInput" class="modal-input" maxlength="1" placeholder="?" autocomplete="off">
+            </div>
+            
+            <div class="input-group">
+                <label class="input-label" for="periodInput">Period ID</label>
+                <input type="text" id="periodInput" class="modal-input" maxlength="17" placeholder="Auto from API" autocomplete="off" style="font-size: 15px;">
+            </div>
+            
+            <div class="modal-error" id="modalError"></div>
+            
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-cancel" id="cancelBtn">Cancel</button>
+                <button class="modal-btn modal-btn-confirm" id="confirmBtn">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('numberModal');
+        const numberInput = document.getElementById('numberInput');
+        const periodInput = document.getElementById('periodInput');
+        const confirmBtn = document.getElementById('confirmBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const modalError = document.getElementById('modalError');
+        const hackButton = document.getElementById('hackButton');
+        const periodDisplay = document.getElementById('period');
+        const betNumber = document.getElementById('betNumber');
+
+        // Make period clickable to open manual override modal (keeps flexibility)
+        // Note: the 30s-behind auto logic will try to correct it back on next tick
+        periodDisplay.style.cursor = 'pointer';
+        periodDisplay.title = 'Click to manually override (30s delay logic will re-apply)';
+        periodDisplay.addEventListener('click', () => {
+            modal.classList.add('show');
+            numberInput.value = (currentPredictionNum !== null) ? currentPredictionNum : '';
+            periodInput.value = periodDisplay.textContent;
+            modalError.textContent = '';
+            numberInput.focus();
+        });
+
+        // === LOGIC (updated per request) ===
+        // - Background continues to auto-update the NUMBER/BALL "as it is" (real from latest completed immediately when new result publishes).
+        // - NO automatic period changes anymore.
+        // - Period only updates when user clicks "NEXT PREDICTION".
+        // - On click: compute the "current" period using same +1 logic from last result, with 30s behind (the one that is 30s peeche from exact abhi chl rha), set it, and keep it frozen until next click.
+        let lastCompletedShown = "";
+        let currentPredictionNum = null;
+        let resultsCache = {};
+        let manualBallLockUntil = 0;
+        let manualPeriodLockUntil = 0;
+        let lastResultDetectedTime = 0;  // for computing the 30s-behind period on click (updated live by bg for number)
+
+        // Fetch history, populate cache, and return the latest completed issue + its number
+        async function fetchLatestCompleted() {
+            try {
+                const ts = Date.now();
+                const res = await fetch(`https://draw.ar-lottery01.com/WinGo/WinGo_1M/GetHistoryIssuePage.json?ts=${ts}`, {
+                    method: 'GET',
+                    cache: 'no-store',
+                    headers: { 'Accept': 'application/json, text/plain, */*' }
+                });
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+
+                const text = await res.text();
+                const json = JSON.parse(text);
+
+                let list = [];
+                if (json?.data?.list?.length) list = json.data.list;
+                else if (json?.data?.issueList?.length) list = json.data.issueList;
+
+                if (list.length === 0) return null;
+
+                const last = list[0];
+                const fullPeriod = (last.issueNumber || last.issue || '').toString();
+                const num = last.number;
+
+                if (fullPeriod && num != null) {
+                    resultsCache[fullPeriod] = num.toString();
+                    return { fullPeriod, num: parseInt(num) };
+                }
+                return null;
+            } catch (e) {
+                console.warn('Fetch latest completed failed:', e.message || e);
+                return null;
+            }
+        }
+
+        // Fetch current running period + remaining seconds (for 30s period delay only)
+        async function fetchGameState() {
+            try {
+                const ts = Date.now();
+                const res = await fetch(`https://draw.ar-lottery01.com/WinGo/WinGo_1M/GetGameIssue.json?ts=${ts}`, {
+                    method: 'GET',
+                    cache: 'no-store',
+                    headers: { 'Accept': 'application/json, text/plain, */*' }
+                });
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+
+                const text = await res.text();
+                const json = JSON.parse(text);
+                const data = json?.data || json || {};
+
+                const issue = (data.issue || data.issueNumber || data.gameIssue || '').toString();
+                let surplus = data.surplusSecond ?? data.surplus_second ?? data.remainTime ?? data.timeLeft ?? data.surplus ?? null;
+
+                surplus = parseInt(surplus);
+                if (!issue) return null;
+
+                return {
+                    issue: issue,
+                    surplusSecond: isNaN(surplus) ? 60 : surplus
+                };
+            } catch (e) {
+                // fallback will be handled in caller
+                return null;
+            }
+        }
+
+        // Apply the ball + BIG/SMALL for a given number (0-9)
+        function applyPrediction(num, force = false) {
+            if (!force && Date.now() < manualBallLockUntil) return;
+
+            if (num < 0 || num > 9) return;
+
+            const ballHtml = `<div class="ball"><img src="ball-${num}.png" alt="${num}"></div>`;
+            const label = (num >= 0 && num <= 4) ? 'SMALL WIN' : 'BIG WIN';
+            betNumber.innerHTML = `${ballHtml}<span class="bet-text">${label}</span>`;
+        }
+
+        async function updateFromHistory() {
+            const latest = await fetchLatestCompleted();
+            if (!latest) return;
+
+            const { fullPeriod, num } = latest;
+
+            const isNewCompleted = (fullPeriod !== lastCompletedShown);
+
+            if (isNewCompleted) {
+                // NUMBER: update immediately with real result from this completed (keep exactly "same as it is")
+                lastCompletedShown = fullPeriod;
+                currentPredictionNum = num;
+                applyPrediction(num, false);  // respect recent manual ball lock (do not force override during 25s grace)
+
+                lastResultDetectedTime = Date.now();
+
+                console.log('%c[Number same as is] Real result applied immediately →', 'color:#d4af37', num, 'for completed', fullPeriod);
+
+                // We track lastCompletedShown + lastResultDetectedTime so that when user clicks NEXT PREDICTION
+                // we can compute the 30s-behind "current running" period at click time using the +1 logic.
+                // Background NO LONGER touches periodDisplay at all.
+            }
+        }
+
+        // Background loop (every 2s)
+        // - Only updates the NUMBER/BALL automatically ("as it is" - real from latest completed immediately).
+        // - Period is NEVER updated automatically by background.
+        // - When user clicks "NEXT PREDICTION", we sample the current 30s-behind period (using +1 from last result + time check) and set it. It then stays frozen until the next click.
+        async function backgroundApiLoop() {
+            await updateFromHistory();
+        }
+
+        // === NEXT PREDICTION button ===
+        // On click:
+        // - Sample the CURRENT period using the same +1 logic from last result + 30s behind (exact "abhi chl rha" wala 30s peeche).
+        // - Set the periodDisplay to it.
+        // - It will STAY frozen at that value until the next time user clicks NEXT PREDICTION (no auto change in between).
+        // - Visual hack effect + re-apply the current number (number continues "as it is" in background too).
+        hackButton.addEventListener('click', async () => {
+            // Ensure we have fresh state (number + lastCompleted + detection time)
+            await updateFromHistory();
+
+            // Compute the period to show RIGHT NOW using the 30s behind logic on the +1 real current
+            let periodToShow = periodDisplay.textContent; // fallback to current
+            if (lastCompletedShown && lastResultDetectedTime > 0) {
+                const timeSince = Date.now() - lastResultDetectedTime;
+                if (timeSince >= 30000) {
+                    // 30s have passed since last result publish → the real current (+1) is now "active" for UI too
+                    periodToShow = (BigInt(lastCompletedShown) + 1n).toString();
+                } else {
+                    // Still within the first 30s after last result → show the previous (lastCompleted)
+                    periodToShow = lastCompletedShown;
+                }
+            } else {
+                // Fallback: force a fresh fetch and use +1 as current
+                const fresh = await fetchLatestCompleted();
+                if (fresh) {
+                    periodToShow = (BigInt(fresh.fullPeriod) + 1n).toString();
+                }
+            }
+
+            // Set the period (this is the value at click time; it will now stay until next click)
+            if (periodToShow) {
+                periodDisplay.textContent = periodToShow;
+            }
+
+            // Visual hack effect (luxury style)
+            const predBox = document.querySelector('.prediction-box');
+            if (predBox) {
+                predBox.style.transition = 'transform 0.15s, box-shadow 0.15s';
+                predBox.style.transform = 'scale(1.08)';
+                predBox.style.boxShadow = '0 0 40px rgba(212, 175, 55, 0.9)';
+
+                setTimeout(() => {
+                    if (predBox) {
+                        predBox.style.transform = 'scale(1)';
+                        predBox.style.boxShadow = '0 20px 60px rgba(212, 175, 55, 0.3), inset 0 0 50px rgba(212, 175, 55, 0.05)';
+                    }
+                }, 280);
+            }
+
+            // Re-apply / pulse the current number (number logic stays "as it is")
+            if (currentPredictionNum !== null) {
+                setTimeout(() => {
+                    applyPrediction(currentPredictionNum, true);
+                    if (predBox) {
+                        predBox.style.boxShadow = '0 0 30px rgba(255, 215, 0, 0.7)';
+                        setTimeout(() => {
+                            if (predBox) predBox.style.boxShadow = '0 20px 60px rgba(212, 175, 55, 0.3), inset 0 0 50px rgba(212, 175, 55, 0.05)';
+                        }, 600);
+                    }
+                }, 1200);
+            }
+        });
+
+        cancelBtn.addEventListener('click', () => modal.classList.remove('show'));
+
+        numberInput.addEventListener('input', (e) => {
+            const value = e.target.value;
+            if (value && !/^[0-9]$/.test(value)) {
+                e.target.value = '';
+                modalError.textContent = '⚠ Only 0-9 allowed!';
+                setTimeout(() => modalError.textContent = '', 2000);
+            } else {
+                modalError.textContent = '';
+            }
+        });
+
+        numberInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') periodInput.focus();
+        });
+
+        periodInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') confirmBtn.click();
+        });
+
+        periodInput.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+        });
+
+        confirmBtn.addEventListener('click', () => {
+            const enteredNumber = numberInput.value.trim();
+            const enteredPeriod = periodInput.value.trim();
+            
+            if (!enteredNumber || !/^[0-9]$/.test(enteredNumber)) {
+                modalError.textContent = '⚠ Enter valid number (0-9)';
+                numberInput.focus();
+                return;
+            }
+
+            if (enteredPeriod && enteredPeriod.length < 5) {
+                modalError.textContent = '⚠ Period ID must be at least 5 digits';
+                periodInput.focus();
+                return;
+            }
+
+            const num = parseInt(enteredNumber);
+            const ballHtml = `<div class="ball"><img src="ball-${num}.png" alt="${num}"></div>`;
+            const displayText = num >= 0 && num <= 4 
+                ? `${ballHtml}<span class="bet-text">SMALL WIN</span>`
+                : `${ballHtml}<span class="bet-text">BIG WIN</span>`;
+
+            betNumber.innerHTML = displayText;
+
+            // Manual override - update our current state so background doesn't immediately fight it
+            if (!isNaN(num)) {
+                currentPredictionNum = num;
+                manualBallLockUntil = Date.now() + 25000; // protect manual for 25s
+            }
+
+            if (enteredPeriod) {
+                periodDisplay.textContent = enteredPeriod;
+                // do not overwrite lastCompletedShown (keep it for real history isNew detection)
+                // just pause the auto period delay logic for 25s
+                manualPeriodLockUntil = Date.now() + 25000;
+            }
+
+            modal.classList.remove('show');
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.classList.remove('show');
+        });
+
+        // Initial load - background starts tracking latest results for NUMBER and for click-time period computation.
+        // No period is set automatically on load (stays at initial HTML value until first click).
+        (async () => {
+            await updateFromHistory();
+
+            // Quick retries on startup to get fresh lastCompleted / time
+            setTimeout(() => updateFromHistory(), 900);
+            setTimeout(() => updateFromHistory(), 2200);
+        })();
+
+        // Start background polling every 2 seconds (only for number + state tracking)
+        setInterval(backgroundApiLoop, 2000);
+
+        // Kick off one background loop almost immediately too
+        setTimeout(backgroundApiLoop, 1200);
+    </script>
+</body>
+</html>
